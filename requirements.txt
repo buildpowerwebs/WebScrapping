@@ -1,0 +1,9 @@
+requests
+beautifulsoup4
+pandas
+selenium
+playwright
+pdfplumber
+tqdm
+lxml
+fake_useragent
