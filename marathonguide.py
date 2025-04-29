@@ -32,13 +32,13 @@ def scrape_event_links(page):
         return []
 
     # Initialize counter outside the loop
-    cnt = 0
+    # cnt = 0
     while True:
         try:
             load_more = page.locator("text=LOAD MORE")
-            if load_more.is_visible() and cnt < 2:
+            if load_more.is_visible():
                 load_more.click()
-                cnt = cnt + 1
+                # cnt = cnt + 1
                 time.sleep(3)  # wait for content to load
             else:
                 break
@@ -130,12 +130,17 @@ if __name__ == "__main__":
         # writer.writerow(["Place", "Full Name", "BIB", "Chip time", "Final Time", "Gender", "Location"])
 
         # For testing, limit to first 10 events
-        for event_name, event_info, event_url in events[:5]:
+        for event_name, event_info, event_url in events:
             print(f"Scraping {event_name}")
             safe_name = sanitize_filename(event_name)
             output_file = f"output/{safe_name}.csv"
             with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
+                # Add event information as header rows
+                writer.writerow(["Event Name:", event_name])
+                writer.writerow(["Event Information:", event_info])
+                writer.writerow([])  # Empty row for separation
+                writer.writerow(["Race Results:"])
                 try:
                     results = get_race_results(page, event_url)
                     for row in results:
