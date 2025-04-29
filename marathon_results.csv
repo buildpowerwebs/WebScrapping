@@ -1,201 +1,105 @@
-Event,Bib,Name,Age,Gender,City/State,Time,Pace,DivPlace,OverallPlace
-All Results,Asmerom Weldetnsae,02:25:02,02:25:04,,Male,Orangeville
-All Results,Ryan Tice,02:28:06,02:28:06,,Male,Mississauga
-All Results,Danny Morin,02:31:47,02:31:47,,Male,Toronto
-All Results,Mathieu Moor,02:34:07,02:34:07,,Male,Hamilton
-All Results,Sam Hunt,02:34:49,02:34:49,,Male,Edmonton
-All Results,Matt Suda,02:36:08,02:36:10,,Male,London
-All Results,Joel Harris,02:40:13,02:40:13,,Male,Toronto
-All Results,Kyle Grieve,02:44:44,02:44:44,,Male,toronto
-All Results,Matt Rodgers,02:50:17,02:50:21,,Male,Niagara Falls
-All Results,Mark Cullen,02:50:27,02:50:30,,Male,Waterloo
-All Results,Jared Poole,02:50:58,02:51:01,,Male,Calgary
-All Results,Marcus Gatto,02:50:58,02:51:02,,Male,Guelph
-All Results,Joseph Battista,02:51:51,02:51:56,,Male,Toronto
-All Results,Nathan Schmidt,02:52:42,02:52:46,,Male,Camlachie
-All Results,Benjamin Scott,02:52:47,02:52:55,,Male,Ottawa
-All Results,Jared Bourque,02:53:20,02:53:24,,Male,Sarnia
-All Results,Thomas Wood,02:53:29,02:53:36,,Male,St Catharines
-All Results,Nick Buffo,02:53:54,02:54:02,,Male,Hamilton
-All Results,Aleksandr Glumilin,02:55:25,02:55:25,,Male,Toronto
-All Results,Juan Zorrilla,02:55:39,02:55:53,,Male,Toronto
-All Results,Christopher Stoppler,02:36:27,02:36:26,47,Male,Regina
-All Results,Trent Gill,02:42:37,02:42:37,37,Male,Brandon
-All Results,Conor Renouf,02:59:18,02:59:16,35,Male,Regina
-All Results,Ashley Struck,03:18:51,03:18:50,32,Female,Ardmore
-All Results,Riley Reid,03:20:16,03:20:12,34,Male,White City
-All Results,Ryan Beaton,03:21:20,03:21:19,46,Male,Victoria
-All Results,Ellyssa Nielsen,03:29:02,03:29:00,27,Female,Lemberg
-All Results,Jérôme Simon,03:29:23,03:29:19,27,Male,Bushell Park
-All Results,Alexander Cave,03:34:35,03:34:24,38,Male,Fort Saskatchewan
-All Results,Amber Rollack,03:38:19,03:38:17,44,Female,Saskatoon
-All Results,Michael Dahlman,03:39:13,03:39:10,43,Male,Regina
-All Results,Devin Gabel,03:42:50,03:42:50,42,Male,Regina
-All Results,Allyson Boychuk,03:43:13,03:43:07,35,Female,Regina
-All Results,David Mercer,03:43:58,03:43:28,58,Male,Devon
-All Results,Ken Ouelette,03:45:46,03:45:37,62,Male,St. Albert
-All Results,Brent Young,03:46:52,03:46:44,56,Male,Regina
-All Results,Colin Magnusson,03:48:27,03:48:20,53,Male,Calgary
-All Results,Mitchell Smith,03:52:40,03:52:31,40,Male,Moose Jaw
-All Results,Rod Carew,03:53:47,03:53:45,52,Male,Whitecourt
-All Results,Elizabeth Amos,03:54:00,03:53:50,33,Female,Grande Prairie
-All Results,Monaghan Liam,,02:48:05,27,Male,
-All Results,Silivestro Joseph,,02:54:39,26,Male,
-All Results,Adams Connor,,03:16:05,26,Male,
-All Results,Gausman Grady,,03:23:43,31,Male,
-All Results,States Devyn,,03:25:12,27,Male,
-All Results,Bigler Maggie,,03:26:32,45,Female,
-All Results,Oakenfold George,,03:27:06,27,Male,
-All Results,Lawless Christopher,,03:29:28,35,Male,
-All Results,Lopez Gabe,,03:30:19,22,Male,
-All Results,Dunn Natasha,,03:31:03,37,Female,
-All Results,Garofalo Nicholas,,03:35:38,23,Male,
-All Results,Bertalan Eva,,03:37:11,53,Female,
-All Results,Swett Sean,,03:37:45,23,Male,
-All Results,Trueb Ryan,,03:39:55,27,Male,
-All Results,Blazejack Tony,,03:40:43,43,Male,
-All Results,Gombar Katiya,,03:43:01,30,Female,
-All Results,Zimet Joe,,03:44:19,23,Male,
-All Results,Randall Brian,,03:44:50,31,Male,
-All Results,Schlueter Luke,,03:45:10,29,Male,
-All Results,Monson Michael,,03:46:52,33,Male,
-All Results,Josh Griffiths,02:16:56,02:16:56,,Male,
-All Results,Matthew Sharp,02:17:22,02:17:22,,Male,
-All Results,Kevin Campbell,02:17:38,02:17:38,,Male,
-All Results,Seyfu Jamaal,02:18:03,02:18:03,,Male,
-All Results,William Strangeway,02:20:06,02:20:07,,Male,
-All Results,Daniel Connolly,02:20:48,02:20:48,,Male,
-All Results,Callum Rowlinson,02:21:06,02:21:06,,Male,
-All Results,Michael Ferguson,02:22:13,02:22:14,,Male,
-All Results,Mohammed Elbayan,02:22:32,02:22:32,,Male,
-All Results,Callum Davidson,02:24:34,02:24:34,,Male,
-All Results,Jack Martin,02:24:37,02:24:38,,Male,
-All Results,Fraser Stewart,02:24:56,02:24:57,,Male,
-All Results,Patrick Hutton,02:25:12,02:25:12,,Male,
-All Results,Jake Guest,02:25:47,,,Male,
-All Results,Ryan Donald,02:25:56,,,Male,
-All Results,Alexander Wallace,02:26:41,02:26:42,,Male,
-All Results,Dean Williamson,02:26:59,02:27:00,,Male,
-All Results,Stuart Paterson,02:27:38,,,Male,
-All Results,Thomas Charles,02:28:07,02:28:07,,Male,
-All Results,Lachlan Oates,02:29:08,02:29:09,,Male,
-All Results,Patrick Hammond,03:35:22,03:35:22,40,Male,
-All Results,Austin Schaffner,03:44:42,03:44:42,33,Male,
-All Results,Walker Augustyniak,03:52:54,03:52:54,35,Male,
-All Results,John Martino,04:07:20,04:07:20,40,Male,
-All Results,Daisy Packard,04:09:27,04:09:27,34,Female,
-All Results,Jona Homer,04:39:37,04:39:37,36,Male,
-All Results,Grace Duplessis,04:41:02,04:41:02,26,Female,
-All Results,Trent Winlock,04:41:02,04:41:02,49,Male,
-All Results,Doug Niemann,04:43:27,04:43:27,33,Male,
-All Results,Frank Dahl,04:48:30,04:48:30,45,Male,
-All Results,Rachel Elliott,04:49:31,04:49:31,44,Female,
-All Results,Bradin Howell,05:06:38,05:06:38,20,Male,
-All Results,Emily Blain,05:06:58,05:06:58,40,Female,
-All Results,Will Hinkle,05:07:00,05:07:00,36,Male,
-All Results,Mike Williams,05:07:22,05:07:22,47,Male,
-All Results,Karli Neutz,05:11:08,05:11:08,32,Female,
-All Results,Caroline Burnett,05:17:12,05:17:12,30,Female,
-All Results,Brooklyn McDonnell,05:17:53,05:17:53,44,Female,
-All Results,John McDonnell,05:17:55,05:17:55,38,Male,
-All Results,Lauren Roach,05:24:10,05:24:10,32,Female,
-All Results,MARTIN BROWN,02:29:14,02:29:15,,Male,
-All Results,DAVID BIRTWISTLE,02:44:09,02:44:11,,Male,
-All Results,JORDAN KINSLEY,02:44:31,02:45:27,,Male,
-All Results,JAMIE CUMMINS,02:44:45,02:45:54,,Male,
-All Results,HARVEY MITCHELL-DIVERS,02:45:56,02:45:59,,Male,
-All Results,JAMES WILKINSON,02:46:03,02:46:05,,Male,
-All Results,ANDREW PENNYCUICK,02:47:13,02:47:15,,Male,
-All Results,MATTHEW SOMERS,02:49:29,02:49:31,,Male,
-All Results,ROGER PRUDON,02:51:07,02:51:09,,Male,
-All Results,RICHARD EDGE,02:53:12,02:53:19,,Male,
-All Results,HELEN URQUHART,02:53:35,02:54:23,,Female,
-All Results,HUGH MCALOON,02:53:37,02:54:25,,Male,
-All Results,PAUL EVANS,02:54:41,02:54:44,,Male,
-All Results,NEIL JACK,02:54:40,02:54:44,,Male,
-All Results,CALUM HEPWORTH,02:54:32,02:55:03,,Male,
-All Results,LUKE WILKS,02:55:01,02:55:24,,Male,
-All Results,TOM PEACOCK,02:54:56,02:56:18,,Male,
-All Results,CARL ROURKE,02:56:33,02:56:38,,Male,
-All Results,DAVID WOODS,02:57:16,02:57:23,,Male,
-All Results,JOSEPH SMITH,02:57:04,02:57:27,,Male,
-All Results,Féidhlim Mc Gowan,02:30:53,02:30:53,,Male,
-All Results,Edward O Connor,02:45:32,02:45:33,,Male,
-All Results,Daniil Miasoedov,02:48:18,02:48:18,,Male,
-All Results,Oran Finegan,02:55:14,02:55:16,,Male,
-All Results,Eoin O Connor,02:57:03,02:57:09,,Male,
-All Results,John Culhane,02:57:41,02:57:46,,Male,
-All Results,Aaron Beggs,03:01:32,03:01:32,,Male,
-All Results,Karsten Van Ommen,03:04:44,03:04:48,,Male,
-All Results,Tommy Faherty,03:05:20,03:05:39,,Male,
-All Results,Richard Peyton,03:08:13,03:08:13,,Male,
-All Results,Cathal Sheehy,03:08:13,03:08:18,,Male,
-All Results,Peter Aylward,03:08:16,03:08:23,,Male,
-All Results,Justin Depalatis,03:09:18,03:09:18,,Male,
-All Results,Adam Moylan,03:14:43,03:14:48,,Male,
-All Results,James Mason,03:15:07,03:15:18,,Male,
-All Results,Alessandro Belloni,03:16:18,03:16:28,,Male,
-All Results,Enzo Cadiou,03:16:31,03:16:38,,Male,
-All Results,Oliver Deacon,03:16:41,03:16:47,,Male,
-All Results,Elmars Maskalans,03:19:08,03:19:14,,Male,
-All Results,Dries Leys,03:19:07,03:19:19,,Male,
-All Results,Sabastian SAWE,,02:02:27,,Male,
-All Results,Jacob KIPLIMO,,02:03:37,,Male,
-All Results,Alexander Mutiso MUNYAO,,02:04:20,,Male,
-All Results,Abdi NAGEEYE,,02:04:20,,Male,
-All Results,Tamirat TOLA,,02:04:42,,Male,
-All Results,Eliud KIPCHOGE,,02:05:25,,Male,
-All Results,Hillary KIPKOECH,,02:06:05,,Male,
-All Results,Amanal PETROS,,02:06:30,,Male,
-All Results,Mahamed MAHAMED,,02:08:52,,Male,
-All Results,Milkesa MENGESHA,,02:09:01,,Male,
-All Results,Andrew BUCHANAN,,02:09:11,,Male,
-All Results,Adam LIPSCHITZ,,02:09:48,,Male,
-All Results,Sondre Norstad MOEN,,02:09:57,,Male,
-All Results,Alex YEE,,02:11:08,,Male,
-All Results,Weynay GHEBRESILASE,,02:11:21,,Male,
-All Results,Jake SMITH,,02:11:57,,Male,
-All Results,Marcelo LAGUERA,,02:12:03,,Male,
-All Results,Kevin SALVANO,,02:13:03,,Male,
-All Results,Alex MILNE,,02:14:03,,Male,
-All Results,Philip SESEMANN,,02:14:46,,Male,
-All Results,Jake Gibbs,02:53:55,,,Male,
-All Results,Jake Kaslewicz,02:56:08,,,Male,
-All Results,Connor Bootz,02:58:57,,,Male,
-All Results,Jantzen Hing,02:59:47,,,Male,
-All Results,Albert Boyce,03:00:06,,,Male,
-All Results,Grace Chow,03:01:09,,,Female,
-All Results,Tim Kamp,03:02:10,,,Male,
-All Results,Dustin Balog,03:03:03,,,Male,
-All Results,John Bohnemann,03:06:50,,,Male,
-All Results,Nick Yancey,03:07:05,,,Male,
-All Results,Joshua Lynott,03:08:31,,,Male,
-All Results,Jeff Brignac,03:08:31,,,Male,
-All Results,Macy Putman,03:09:24,,,Female,
-All Results,Edward Stanila,03:09:38,,,Male,
-All Results,Kristen Maxwell,03:11:10,,,Female,
-All Results,everett sakai,03:11:45,,,Male,
-All Results,Jeremy Pevahouse,03:14:00,,,Male,
-All Results,AnnMarie Wilson,03:16:11,,,Female,
-All Results,Nicholas Bicandi,03:18:47,,,Male,
-All Results,Brad Kukral,03:21:10,,,Male,
-All Results,Will Lindsey,02:32:50,02:32:51,,Male,
-All Results,Andrew Leveson,02:38:12,02:38:13,,Male,
-All Results,Tom Shardlow,02:38:35,02:38:35,,Male,
-All Results,Jamie Hall,02:39:45,02:39:45,,Male,
-All Results,Archie Fox,02:44:18,02:44:19,,Male,
-All Results,Joseph Willgoss,02:44:52,02:44:54,,Male,
-All Results,Darren Stacey,02:44:56,02:44:59,,Male,
-All Results,Paul Leverton,02:45:16,02:45:19,,Male,
-All Results,Rory Knight,02:45:45,02:45:47,,Male,
-All Results,Timothy Benger,02:45:52,02:45:54,,Male,
-All Results,Samuel Kenna,02:49:12,02:49:12,,Male,
-All Results,Tom Harley,02:49:19,02:49:19,,Male,
-All Results,Stephen Iwanek,02:49:22,02:49:37,,Male,
-All Results,Adam Burton,02:49:26,02:49:27,,Male,
-All Results,Robbie Driscoll,02:51:35,02:51:38,,Male,
-All Results,Matthew Ma,02:52:09,02:52:13,,Male,
-All Results,Scott Harris,02:52:18,02:52:22,,Male,
-All Results,Aaron Johnson-Chapman,02:56:02,02:56:04,,Male,
-All Results,Clive Green,02:56:10,02:56:12,,Male,
-All Results,Patrick Jolly,02:56:17,02:56:22,,Male,
+Place,Full Name,BIB,Chip time,Final Time,Age,Gender
+1,Patrick Hammond,373,03:35:22,03:35:22,40,Male
+2,Austin Schaffner,417,03:44:42,03:44:42,33,Male
+3,Walker Augustyniak,334,03:52:54,03:52:54,35,Male
+4,John Martino,390,04:07:20,04:07:20,40,Male
+5,Daisy Packard,400,04:09:27,04:09:27,34,Female
+6,Jona Homer,376,04:39:37,04:39:37,36,Male
+7,Grace Duplessis,358,04:41:02,04:41:02,26,Female
+8,Trent Winlock,435,04:41:02,04:41:02,49,Male
+9,Doug Niemann,397,04:43:27,04:43:27,33,Male
+10,Frank Dahl,354,04:48:30,04:48:30,45,Male
+11,Rachel Elliott,360,04:49:31,04:49:31,44,Female
+12,Bradin Howell,377,05:06:38,05:06:38,20,Male
+13,Emily Blain,340,05:06:58,05:06:58,40,Female
+14,Will Hinkle,443,05:07:00,05:07:00,36,Male
+15,Mike Williams,433,05:07:22,05:07:22,47,Male
+16,Karli Neutz,396,05:11:08,05:11:08,32,Female
+17,Caroline Burnett,347,05:17:12,05:17:12,30,Female
+18,Brooklyn McDonnell,391,05:17:53,05:17:53,44,Female
+19,John McDonnell,392,05:17:55,05:17:55,38,Male
+20,Lauren Roach,413,05:24:10,05:24:10,32,Female
+Place,Full Name,BIB,Final Time,Age,Gender
+1,Monaghan Liam,1102,02:48:05,27,Male
+2,Silivestro Joseph,1089,02:54:39,26,Male
+3,Adams Connor,1035,03:16:05,26,Male
+4,Gausman Grady,1208,03:23:43,31,Male
+5,States Devyn,1218,03:25:12,27,Male
+6,Bigler Maggie,1058,03:26:32,45,Female
+7,Oakenfold George,1202,03:27:06,27,Male
+8,Lawless Christopher,1263,03:29:28,35,Male
+9,Lopez Gabe,1217,03:30:19,22,Male
+10,Dunn Natasha,1094,03:31:03,37,Female
+11,Garofalo Nicholas,1112,03:35:38,23,Male
+12,Bertalan Eva,1121,03:37:11,53,Female
+13,Swett Sean,1246,03:37:45,23,Male
+14,Trueb Ryan,1103,03:39:55,27,Male
+15,Blazejack Tony,1220,03:40:43,43,Male
+16,Gombar Katiya,1229,03:43:01,30,Female
+17,Zimet Joe,1061,03:44:19,23,Male
+18,Randall Brian,1025,03:44:50,31,Male
+19,Schlueter Luke,1064,03:45:10,29,Male
+20,Monson Michael,1240,03:46:52,33,Male
+Place,Full Name,BIB,Chip time,Gender
+1,Jake Gibbs,181,02:53:55,Male
+2,Jake Kaslewicz,251,02:56:08,Male
+3,Connor Bootz,51,02:58:57,Male
+4,Jantzen Hing,218,02:59:47,Male
+5,Albert Boyce,55,03:00:06,Male
+6,Grace Chow,90,03:01:09,Female
+7,Tim Kamp,248,03:02:10,Male
+8,Dustin Balog,34,03:03:03,Male
+9,John Bohnemann,50,03:06:50,Male
+10,Nick Yancey,517,03:07:05,Male
+11,Joshua Lynott,1,03:08:31,Male
+12,Jeff Brignac,60,03:08:31,Male
+13,Macy Putman,384,03:09:24,Female
+14,Edward Stanila,574,03:09:38,Male
+15,Kristen Maxwell,315,03:11:10,Female
+16,everett sakai,412,03:11:45,Male
+17,Jeremy Pevahouse,374,03:14:00,Male
+18,AnnMarie Wilson,548,03:16:11,Female
+19,Nicholas Bicandi,45,03:18:47,Male
+20,Brad Kukral,267,03:21:10,Male
+Place,Full Name,BIB,Chip time,Final Time,Age,Gender,Location
+1,SIMON RICCI,2165,02:31:02,02:31:04,27,Male,SAN FRANCISCO
+2,JAKE ERSCHEN,1499,02:36:08,02:36:10,33,Male,WAUWATOSA
+3,NIC AUBERT,434,02:42:29,02:42:36,37,Male,WOODBURY
+4,RUSSELL MARTIN,21,02:44:44,02:44:47,42,Male,BALTIMORE
+5,ADAM ROACH,1497,02:44:50,02:44:51,41,Male,PACIFIC GROVE
+6,RYAN RAFUSE,436,02:46:40,02:46:41,41,Male,KENTVILLE
+7,MARK MACHADO,1408,02:48:17,02:48:19,31,Male,SAN CARLOS
+8,JOSEPH VERELLEN,1206,02:49:31,02:49:34,44,Male,WHITE LAKE
+9,TYLER FENNEMA,1570,02:49:36,02:49:39,23,Male,NEWPORT BEACH
+10,SERENA BURLA,1201,02:49:39,02:49:40,42,Female,STAFFORD
+11,LUKE BABCOCK,1078,02:50:36,02:50:39,45,Male,DENVER
+12,ELOI DIVOL,440,02:50:41,02:50:45,22,Male,SAN FRANCISCO
+13,THOMAS CASSIDY,23,02:52:09,02:52:11,37,Male,NORTH HILLS
+14,ADAM MURRAY,1413,02:52:22,02:52:26,29,Male,MONTEREY
+15,ANNE FLOWER,1505,02:52:56,02:52:58,35,Female,COLORADO SPGS
+16,JOHN MCHUGH,444,02:53:19,02:53:21,39,Male,LAFAYETTE
+17,GREGG DONNELLY,808,02:54:58,02:55:11,34,Male,HADDONFIELD
+18,PIETRO SIGNORACCI,1503,02:55:14,02:55:17,39,Male,NEW YORK
+19,BRETT SZALAPSKI,634,02:56:26,02:56:31,32,Male,CUPERTINO
+20,DIETER BRANDNER,729,02:56:30,02:56:40,33,Male,SAN FRANCISCO
+Place,Full Name,BIB,Final Time,Gender
+1,Sabastian SAWE,4,02:02:27,Male
+2,Jacob KIPLIMO,38,02:03:37,Male
+3,Alexander Mutiso MUNYAO,1,02:04:20,Male
+4,Abdi NAGEEYE,9,02:04:20,Male
+5,Tamirat TOLA,7,02:04:42,Male
+6,Eliud KIPCHOGE,2,02:05:25,Male
+7,Hillary KIPKOECH,10,02:06:05,Male
+8,Amanal PETROS,11,02:06:30,Male
+9,Mahamed MAHAMED,15,02:08:52,Male
+10,Milkesa MENGESHA,6,02:09:01,Male
+11,Andrew BUCHANAN,14,02:09:11,Male
+12,Adam LIPSCHITZ,18,02:09:48,Male
+13,Sondre Norstad MOEN,12,02:09:57,Male
+14,Alex YEE,39,02:11:08,Male
+15,Weynay GHEBRESILASE,21,02:11:21,Male
+16,Jake SMITH,22,02:11:57,Male
+17,Marcelo LAGUERA,25,02:12:03,Male
+18,Kevin SALVANO,23,02:13:03,Male
+19,Alex MILNE,34,02:14:03,Male
+20,Philip SESEMANN,17,02:14:46,Male
