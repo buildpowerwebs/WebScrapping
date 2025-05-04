@@ -48,7 +48,7 @@ def go_to_next_page(page, pageUrl):
     return False
 
 
-def scrape_event_links(page, year=2024, event='marathon', group="runner", subgroup="MAR", gender="M", agegroup="-19", results_page='25' ):
+def scrape_event_links(page, year=2024,  group="runner", subgroup="MAR", gender="M", agegroup="-19", results_page='25' ):
 
     try:
         # Increase timeout to 60 seconds and add error handling
@@ -58,6 +58,7 @@ def scrape_event_links(page, year=2024, event='marathon', group="runner", subgro
             pageUrl="https://results.chicagomarathon.com/2024/"
             page.goto(pageUrl, timeout=30000)
             page.select_option('select[name="event_main_group"]', value=group)
+            time.sleep(1)
             page.select_option('select[name="event"]', value=subgroup)
             page.select_option('select#default-lists-sex', value=gender)
             page.select_option('select#default-lists-age_class', value=agegroup)
@@ -75,22 +76,30 @@ def scrape_event_links(page, year=2024, event='marathon', group="runner", subgro
                 if not go_to_next_page(page, pageUrl):
                     break
             return allResults
-        # else:
-            # page.goto(BASE_URL, timeout=60000)
-            # page.select_option('select[name="Year"]', value=str(year))
-            # page.select_option('select[name="Event"]', value=event)
-            # # Wait for the page to load after selecting options
-            # page.wait_for_load_state('networkidle')
-            # # Extract event links
-            # event_links = page.locator('table.results-table a')
-            # events = []
-            # for i in range(event_links.count()):
-            #     link = event_links.nth(i)
-            #     event_name = link.inner_text().strip()
-            #     event_url = link.get_attribute('href')
-            #     event_info = f"{year} {event}" 
+        else:
+            pageUrl=f"https://results.chicagomarathon.com/{year}/"
+            page.goto(pageUrl, timeout=40000)
+            page.select_option('select#default-lists-event_main_group', value=year)
+            time.sleep(1)
+            page.select_option('select#default-lists-event', value=subgroup)
+            page.select_option('select#default-lists-sex', value=gender)
+            page.select_option('select#default-lists-age_class', value=agegroup)
+            page.select_option('select#default-num_results', value=results_page)
+            page.click('button#default-submit', timeout=30000)
+            time.sleep(3)
+            allResults=[]
+            header= scrape_results_header(page)
+            allResults.append(header)
+            while True:
+                results = scrape_marathon_results(page)
+                if not results:
+                    break
+                allResults.extend(results)
+                if not go_to_next_page(page, pageUrl):
+                    break
+            return allResults
     except Exception as e:
-        print(f"Error accessing {BASE_URL}: {str(e)}")
+        print(f"Error accessing : {str(e)}")
         return []
 
 
@@ -104,28 +113,25 @@ if __name__ == "__main__":
         page.set_extra_http_headers({
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
         })
-        year=2024
-        event='marathon'
+        year='2011'
         group="wheelchair"
-        subgroup="MAR"
-        gender="M"
+        subgroup="MAR_9999990E9A92360000000029"
+        gender="W"
         agegroup="20"
-        results_page='25'
+        results_page='1000'
         
         # Get all events first
-        allEvents = scrape_event_links(page,  year, event, group, subgroup, gender, agegroup, results_page)
+        allEvents = scrape_event_links(page, year, group, subgroup, gender, agegroup, results_page)
         print(f'allEvents: {allEvents}')
     
         try:
-            safe_name = sanitize_filename(event)
+            safe_name = sanitize_filename(group)
             output_file = f"output/{year}{safe_name}.csv"
             with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
                 # Add event information as header rows
                 writer.writerow(["Event Information:"])
                 writer.writerow(["Year:", year])
-                if not year==2024:
-                    writer.writerow(["Event Name:", event])
                 writer.writerow(["Group:", group])
                 writer.writerow(["Subgroup:", subgroup])
                 writer.writerow(["Gender:", gender])
@@ -140,23 +146,5 @@ if __name__ == "__main__":
                 except Exception as e:
                     print(f"Error with : {e}")
         except Exception as e:
-            print(f"Error with {event}: {e}")
-        #  for event_name, event_info, event_url in events:
-        #     print(f"Scraping {event_name}")
-        #     safe_name = sanitize_filename(event_name)
-        #     output_file = f"output/{safe_name}.csv"
-        #     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
-        #         writer = csv.writer(csvfile)
-        #         # Add event information as header rows
-        #         writer.writerow(["Event Name:", event_name])
-        #         writer.writerow(["Event Information:", event_info])
-        #         writer.writerow([])  # Empty row for separation
-        #         writer.writerow(["Race Results:"])
-        #         try:
-        #             results = get_race_results(page, event_url)
-        #             for row in results:
-        #                 writer.writerow(row)
-        #             time.sleep(1)  # polite delay
-        #         except Exception as e:
-        #             print(f"Error with {event_url}: {e}")
+            print(f"Error with {group}: {e}")
         browser.close()
