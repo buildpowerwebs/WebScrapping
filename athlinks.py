@@ -15,13 +15,6 @@ def sanitize_filename(name):
     # Replace non-alphanumeric characters with underscores
     return re.sub(r'[^a-zA-Z0-9]+', '_', name).strip('_')
 
-def save_events_to_csv(events, filename="marathon_events.csv"):
-    with open(filename, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["Event Name", "Information", "URL"])
-        writer.writerows(events)
-
-
 def signin(page, username, password):
     # 1. Go to Athlinks homepage
     page.goto("https://www.athlinks.com/", timeout=200000)
