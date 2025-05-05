@@ -1,0 +1,187 @@
+"""Web scraper for marathonguide.com to extract race results and event information."""
+import csv
+import re
+import time
+from playwright.sync_api import sync_playwright
+
+BASE_URL = "https://results.baa.org/"
+
+
+def sanitize_filename(name):
+    """Convert a string into a valid filename by replacing non-alphanumeric chars with underscores."""
+    # Replace non-alphanumeric characters with underscores
+    return re.sub(r'[^a-zA-Z0-9]+', '_', name).strip('_')
+
+def scrape_marathon_results(page):
+    results = []
+    # Select all result rows (both active and inactive)
+    row_selectors = "li.list-group-item.row:not(.list-group-header)"
+    row_elements = page.locator(row_selectors)
+    count = row_elements.count()
+    print(f"Found {count} rows")
+    for i in range(count):
+        row = row_elements.nth(i)
+        cols = row.locator('.list-field').all_inner_texts()
+        print(f'cols:{cols}')
+        results.append(cols)
+    return results
+def scrape_marathon_results_before2018(page):
+    results = []
+    # Select all result rows (both active and inactive)
+    row_selectors = "table.list-table tbody tr"
+    row_elements = page.locator(row_selectors)
+    count = row_elements.count()
+    print(f"Found {count} rows")
+    for i in range(count):
+        row = row_elements.nth(i)
+        cols = row.locator("td").all_inner_texts()
+        print(f'cols:{cols}')
+        results.append(cols)
+    return results
+
+def scrape_results_header(page):
+    # Select all result rows (both active and inactive)
+    row_selectors = "li.list-group-item.row.list-group-header"
+    row = page.locator(row_selectors)
+    cols = row.locator('.list-field').all_inner_texts()
+    print(f'header:{cols}')
+    return cols
+def scrape_results_header_before2018(page):
+    # Select all result rows (both active and inactive)
+    row_selectors = "table.list-table thead tr"
+    row = page.locator(row_selectors)
+    cols = row.locator("th").all_inner_texts()
+    print(f'header:{cols}')
+    return cols
+def go_to_next_page(page, pageUrl):
+    print('Checking for next page...')
+    # Find the next page button
+    next_button = page.locator('ul.pagination li.pages-nav-button a', has_text=">")
+    if next_button.is_visible():
+        print(f"Navigating to next page...:{next_button}")
+        href=next_button.get_attribute('href')
+        url=pageUrl+href
+        print(f"url: {url}")
+        page.goto(url)
+        page.wait_for_load_state('networkidle')
+        return True
+    return False
+
+
+def scrape_event_links(page, year=2024,  group="runner", subgroup="R", gender="M", agegroup="%", results_page='25' ):
+
+    try:
+        # Increase timeout to 60 seconds and add error handling
+        # page.goto(BASE_URL, timeout=60000)
+        print(f'year: {year}')
+        pageUrl=f"{BASE_URL}/{year}/"
+        page.goto(pageUrl, timeout=40000)
+        if(year>="2021"):
+            page.select_option('select#default-lists-event_main_group', value=group)
+            time.sleep(1)
+            page.select_option('select#default-lists-event', value=subgroup)
+            page.select_option('select#default-lists-sex', value=gender)
+            page.select_option('select#default-lists-age_class', value=agegroup)
+            page.select_option('select#default-num_results', value=results_page)
+            page.click('button#default-submit', timeout=30000)
+            time.sleep(3)
+        if(year=="2020"):
+            page.select_option('select#default-lists-event_main_group', value=group)
+            time.sleep(1)
+            page.select_option('select#default-lists-event', value=subgroup)
+            page.fill('input#default-lists-sex', gender)
+            page.select_option('select#default-lists-age_class', value=agegroup)
+            page.select_option('select#default-num_results', value=results_page)
+            page.click('button#default-submit', timeout=30000)
+            time.sleep(3)
+        if(year=="2019" or year =="2018"):
+            page.select_option('select#default-lists-event', value=group)
+            time.sleep(1)
+            # page.select_option('select#default-lists-event', value=subgroup)
+            page.select_option('select#default-lists-sex', value=gender)
+            page.select_option('select#default-lists-age_class', value=agegroup)
+            page.select_option('select#default-num_results', value=results_page)
+            page.click('button#default-submit', timeout=30000)
+            time.sleep(3)
+        if(year < "2018"):
+            page.select_option('select#fe-lists-event', value=group)
+            time.sleep(1)
+            # page.select_option('select#default-lists-event', value=subgroup)
+            page.select_option('select#fe-lists-sex', value=gender)
+            page.select_option('select#fe-lists-ageclass', value=agegroup)
+            page.select_option('select#fe-lists-num-results', value=results_page)
+            page.click('input[value="show results"]', timeout=30000)
+            time.sleep(3)
+        
+        allResults=[]
+        if(year>="2018"):
+            header= scrape_results_header(page)
+            allResults.append(header)
+            while True:
+                results = scrape_marathon_results(page)
+                if not results:
+                    break
+                allResults.extend(results)
+                if not go_to_next_page(page, pageUrl):
+                    break
+        else:
+            header = scrape_results_header_before2018(page)
+            allResults.append(header)
+            while True:
+                results = scrape_marathon_results_before2018(page)
+                if not results:
+                    break
+                allResults.extend(results)
+                if not go_to_next_page(page, pageUrl):
+                    break
+        return allResults
+    except Exception as e:
+        print(f"Error accessing : {str(e)}")
+        return []
+
+
+if __name__ == "__main__":
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+
+        # Set user agent
+        page.set_extra_http_headers({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
+        })
+        year='2011'
+        group="R"
+        subgroup="R"
+        gender="M"
+        agegroup=""
+        results_page='1000'
+        
+        # Get all events first
+        allEvents = scrape_event_links(page, year, group, subgroup, gender, agegroup, results_page)
+        print(f'allEvents: {allEvents}')
+    
+        try:
+            safe_name = sanitize_filename(group)
+            output_file = f"output/{year}{safe_name}.csv"
+            with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
+                writer = csv.writer(csvfile)
+                # Add event information as header rows
+                writer.writerow(["Event Information:"])
+                writer.writerow(["Year:", year])
+                writer.writerow(["Group:", group])
+                writer.writerow(["Subgroup:", subgroup])
+                writer.writerow(["Gender:", gender])
+                writer.writerow(["Age Group:", agegroup])
+                writer.writerow([])  # Empty row for separation
+                writer.writerow(["Race Results:"])
+                try:
+                    # results = scrape_event_links(page,  year, event, group, subgroup, gender, agegroup, results_page)
+                    for row in allEvents:
+                        writer.writerow(row)
+                    time.sleep(1)  # polite delay
+                except Exception as e:
+                    print(f"Error with : {e}")
+        except Exception as e:
+            print(f"Error with {group}: {e}")
+        browser.close()
