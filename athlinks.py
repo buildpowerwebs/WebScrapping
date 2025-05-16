@@ -5,6 +5,7 @@ import re
 import time
 import os
 import json
+import math
 from playwright.sync_api import sync_playwright
 
 BASE_URL = "https://www.athlinks.com/"
@@ -61,32 +62,89 @@ def scrape_race_results(event_id,event_course_id, fr=0):
     url=f"https://results.athlinks.com/event/{event_id}?eventCourseId={event_course_id}&divisionId=&intervalId=&from={fr}&limit=50"
     response = requests.get(url)
     response.raise_for_status()
-    results = response.json()[0]["interval"]["intervalResults"]
+    results = response.json()
     return results
+def scrape_event_info(event_id):
+    url = f"https://alaska.athlinks.com/Events/Api/Merged/{event_id}"
+    response = requests.get(url)
+    response.raise_for_status()
+    event_info = response.json()
+    return event_info
+def scrape_masterEvent_info(event_id):
+    url = f"https://alaska.athlinks.com/MasterEvents/Api/{event_id}"
+    response = requests.get(url)
+    response.raise_for_status()
+    event_info = response.json()
+    return event_info
 def get_total_results(event_id,event_course_id):
     url=f"https://results.athlinks.com/event/{event_id}?eventCourseId={event_course_id}&divisionId=&intervalId=&from=0&limit=50"
     response = requests.get(url)
     response.raise_for_status()
     totalResults = response.json()[0]["totalAthletes"]
     return totalResults
+def calculate_pace(time_ms, distance_m, round_seconds=True):
+    # Constants
+    METERS_IN_MILE = 1609.344
+    # Convert time to minutes
+    time_minutes = time_ms / 1000 / 60
+    # Convert distance to miles
+    distance_miles = distance_m / METERS_IN_MILE
+    # Calculate pace in minutes per mile
+    pace_minutes = time_minutes / distance_miles
+    # Split into minutes and seconds
+    minutes = int(pace_minutes)
+    seconds = pace_minutes - minutes
+    if round_seconds:
+        seconds = round(seconds * 60)
+    else:
+        seconds = int(seconds * 60)
+    # Adjust for rounding overflow (e.g., 3:60 -> 4:00)
+    if seconds == 60:
+        minutes += 1
+        seconds = 0
+    return f"{minutes}:{seconds:02}"
+
+
 def save_event_results(event, results, output_dir="output"):
      # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     safe_name = sanitize_filename(event.get('name', event['Name']))
-    safe_time = sanitize_filename(event.get('time', event['Time']))
-    output_file = os.path.join(output_dir, f"{safe_name}{safe_time}.csv")
+    safe_time = sanitize_filename(results[0]["eventCourseName"])
+    output_file = os.path.join(output_dir, f"{safe_name}_{safe_time}.csv")
+    eventInfo = scrape_event_info(event["EventId"])
+    location = eventInfo["result"]["location"]
+    athlinksMasterId = eventInfo["result"]["athlinksMasterId"]
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
+        print(f'results:{results[0]}')
         writer.writerow(["Event Information:"])
+        writer.writerow(["Event Course Name:", results[0]["eventCourseName"]])
+        writer.writerow(["Location:", location["city"] + ", " + location["regionName"]+", " + location["country"]])
+        writer.writerow(["page Link:", f'https://www.athlinks.com/event/{athlinksMasterId}/results/Event/{event["EventId"]}/Course/{event["EventCourseId"]}/Results'])
         for k, v in event.items():
             writer.writerow([k, v])
         writer.writerow([])  # Empty row for separation
         writer.writerow(["Race Results:"])
 
-        headers = list(results[0].keys())
+        headers = ["DisplayName","Overall", "Gender", "Division", "Pace", "Time"]
         writer.writerow(headers)
-        for result in results:
-            writer.writerow(result.values())
+        for result in results[0]["interval"]["intervalResults"]:
+            pace = result["pace"]
+            distance = pace["distance"]["distanceInMeters"]
+            milliseconds = pace["time"]["timeInMillis"]
+            total_seconds = math.ceil(milliseconds / 1000)
+            minutes = total_seconds // 60
+            seconds = total_seconds % 60
+            # Format as mm:ss
+            formatted_pace = calculate_pace(milliseconds, distance, round_seconds=False)
+            formatted_time = f"{minutes}:{seconds:02d}"
+            writer.writerow([result["displayName"],
+                            result["overallRank"],
+                            result["genderRank"],
+                            result["primaryBracketRank"],
+                            formatted_pace,
+                            formatted_time])                            
+                            
     print(f"Saved results to {output_file}")
 if __name__ == "__main__":
     output_dir = "output"
@@ -104,7 +162,7 @@ if __name__ == "__main__":
 
         totalEvents = get_total_events('marathon')
         allEvents= get_events('marathon')
-        print(f'allEvents:{allEvents}')
+        # print(f'allEvents:{allEvents}')
         for event in allEvents:
             try:
                 time.sleep(1)

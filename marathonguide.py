@@ -2,10 +2,46 @@
 import csv
 import re
 import time
+import os
 from playwright.sync_api import sync_playwright
 
 BASE_URL = "https://www.marathonguide.com/results/search.cfm"
+INDEX_FILE = "index.csv"
+OUTPUT_DIR = "output"
 
+def ensure_output_dir():
+    """Create output directory if it doesn't exist."""
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+
+def load_index():
+    """Load existing events from index.csv."""
+    events = {}
+    if os.path.exists(INDEX_FILE):
+        with open(INDEX_FILE, "r", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                events[row['url']] = {
+                    'name': row['name'],
+                    'info': row['info'],
+                    'downloaded': row['downloaded'] == 'True',
+                    'has_location': row['has_location'] == 'True'
+                }
+    return events
+
+def save_to_index(events):
+    """Save events to index.csv."""
+    with open(INDEX_FILE, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=['name', 'info', 'url', 'downloaded', 'has_location'])
+        writer.writeheader()
+        for url, data in events.items():
+            writer.writerow({
+                'name': data['name'],
+                'info': data['info'],
+                'url': url,
+                'downloaded': str(data['downloaded']),
+                'has_location': str(data['has_location'])
+            })
 
 def sanitize_filename(name):
     """Convert a string into a valid filename by replacing non-alphanumeric chars with underscores."""
@@ -37,7 +73,7 @@ def scrape_event_links(page):
     event_elements = page.locator(".MuiBox-root .css-11pbu0q")
     event_count = event_elements.count()
     print(f"Found {event_count} events")
-
+# https://www.marathonguide.com/results/browse.cfm?MIDD=68905250504&year=2025
     events = []
     for i in range(event_count):
         el = event_elements.nth(i)
@@ -70,7 +106,20 @@ def get_race_results(page, event_url):
         row_elements = page.locator("table tr")
         row_count = row_elements.count()
 
-        for i in range(row_count):
+        # Check if location column exists
+        has_location = False
+        if row_count > 0:
+            header_row = row_elements.nth(0)
+            header_cols = header_row.locator(".MuiTableCell-root")
+            for i in range(header_cols.count()):
+                if "Location" in header_cols.nth(i).inner_text():
+                    has_location = True
+                    break
+
+        if not has_location:
+            return [], False
+
+        for i in range(1, row_count):  # Start from 1 to skip header
             row = row_elements.nth(i)
             cols = row.locator(".MuiTableCell-root")
             col_texts = []
@@ -81,10 +130,10 @@ def get_race_results(page, event_url):
                     col_texts.append(cols.nth(j).inner_text().strip())
                 rows.append(col_texts)
 
-        return rows
+        return rows, True
     except Exception as e:
         print(f"Error scraping results from {event_url}: {str(e)}")
-        return []
+        return [], False
 
 
 def save_events_to_csv(events, filename="marathon_events.csv"):
@@ -95,6 +144,8 @@ def save_events_to_csv(events, filename="marathon_events.csv"):
 
 
 if __name__ == "__main__":
+    ensure_output_dir()
+    existing_events = load_index()
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
@@ -106,24 +157,55 @@ if __name__ == "__main__":
         })
 
         # Get all events first
-        events = scrape_event_links(page)
-        for event_name, event_info, event_url in events:
-            print(f"Scraping {event_name}")
-            safe_name = sanitize_filename(event_name)
-            output_file = f"output/{safe_name}.csv"
-            with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
-                writer = csv.writer(csvfile)
-                # Add event information as header rows
-                writer.writerow(["Event Name:", event_name])
-                writer.writerow(["Event Information:", event_info])
-                writer.writerow([])  # Empty row for separation
-                writer.writerow(["Race Results:"])
+        new_events = scrape_event_links(page)
+        
+        # Update index with new events
+        for event_name, event_info, event_url in new_events:
+            if event_url not in existing_events:
+                existing_events[event_url] = {
+                    'name': event_name,
+                    'info': event_info,
+                    'downloaded': False,
+                    'has_location': False
+                }
+        
+        # Save updated index
+        save_to_index(existing_events)
+
+        # Process events that need downloading
+        for event_url, event_data in existing_events.items():
+            if not event_data['downloaded'] or not event_data['has_location']:
+                print(f"Processing {event_data['name']}")
+                safe_name = sanitize_filename(event_data['name'])
+                output_file = f"{OUTPUT_DIR}/{safe_name}.csv"
+                
                 try:
-                    results = get_race_results(page, event_url)
-                    for row in results:
-                        writer.writerow(row)
+                    results, has_location = get_race_results(page, event_url)
+                    
+                    if has_location and results:
+                        with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
+                            writer = csv.writer(csvfile)
+                            # Add event information as header rows
+                            writer.writerow(["Event Name:", event_data['name']])
+                            writer.writerow(["Event Information:", event_data['info']])
+                            writer.writerow(["Event URL:", event_url])
+                            writer.writerow([])  # Empty row for separation
+                            writer.writerow(["Race Results:"])
+                            for row in results:
+                                writer.writerow(row)
+                        
+                        # Update index with success
+                        existing_events[event_url]['downloaded'] = True
+                        existing_events[event_url]['has_location'] = True
+                        save_to_index(existing_events)
+                    else:
+                        print(f"Skipping {event_data['name']} - No location data available")
+                        existing_events[event_url]['has_location'] = False
+                        save_to_index(existing_events)
+                    
                     time.sleep(1)  # polite delay
                 except Exception as e:
                     print(f"Error with {event_url}: {e}")
+                    # Don't update index on error, allowing for retry later
 
         browser.close()

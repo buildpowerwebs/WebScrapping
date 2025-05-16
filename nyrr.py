@@ -115,10 +115,11 @@ def save_event_results(event, results, output_dir="output"):
         writer.writerow(["Event Code:", event.get('eventCode', '')])
         writer.writerow(["Distance Name:", event.get('distanceName', '')])
         writer.writerow(["distanceUnitCode :", event.get('distanceUnitCode', '')])
-        writer.writerow(["venue :", event.get('venue', '')])
-        writer.writerow(["logoImageId :", event.get('logoImageId', '')])
-        writer.writerow(["virtualStartDate :", event.get('virtualStartDate', '')])
-        writer.writerow(["virtualEndDate :", event.get('virtualEndDate', '')])
+        writer.writerow(["location :", event.get('venue', '')])
+        writer.writerow(["startDateTime :", event.get('startDateTime', '')])
+        writer.writerow(["Link:", f'https://results.nyrr.org/event/{event["eventCode"]}/finishers'])
+        # writer.writerow(["virtualStartDate :", event.get('virtualStartDate', '')])
+        # writer.writerow(["virtualEndDate :", event.get('virtualEndDate', '')])
         writer.writerow([])  # Empty row for separation
         
         if results:

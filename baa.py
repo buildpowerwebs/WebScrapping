@@ -56,7 +56,7 @@ def scrape_results_header_before2018(page):
 def go_to_next_page(page, pageUrl):
     print('Checking for next page...')
     # Find the next page button
-    next_button = page.locator('ul.pagination li.pages-nav-button a', has_text=">")
+    next_button = page.locator('a.pages-nav-button', has_text=">")
     if next_button.is_visible():
         print(f"Navigating to next page...:{next_button}")
         href=next_button.get_attribute('href')
@@ -80,39 +80,60 @@ def scrape_event_links(page, year=2024,  group="runner", subgroup="R", gender="M
             page.select_option('select#default-lists-event_main_group', value=group)
             time.sleep(1)
             page.select_option('select#default-lists-event', value=subgroup)
+            time.sleep(1)
             page.select_option('select#default-lists-sex', value=gender)
-            page.select_option('select#default-lists-age_class', value=agegroup)
+            time.sleep(1)
+            # page.select_option('select#default-lists-age_class', value=agegroup)
+            time.sleep(1)
             page.select_option('select#default-num_results', value=results_page)
             page.click('button#default-submit', timeout=30000)
             time.sleep(3)
-        if(year=="2020"):
+        elif(year=="2020"):
             page.select_option('select#default-lists-event_main_group', value=group)
             time.sleep(1)
             page.select_option('select#default-lists-event', value=subgroup)
             page.fill('input#default-lists-sex', gender)
-            page.select_option('select#default-lists-age_class', value=agegroup)
+            # page.select_option('select#default-lists-age_class', value=agegroup)
             page.select_option('select#default-num_results', value=results_page)
             page.click('button#default-submit', timeout=30000)
             time.sleep(3)
-        if(year=="2019" or year =="2018"):
+        elif(year=="2019" or year =="2018"):
             page.select_option('select#default-lists-event', value=group)
             time.sleep(1)
             # page.select_option('select#default-lists-event', value=subgroup)
             page.select_option('select#default-lists-sex', value=gender)
-            page.select_option('select#default-lists-age_class', value=agegroup)
+            time.sleep(1)
+            # page.select_option('select#default-lists-age_class', value=agegroup)
+            time.sleep(1)
             page.select_option('select#default-num_results', value=results_page)
+            time.sleep(1)
             page.click('button#default-submit', timeout=30000)
             time.sleep(3)
-        if(year < "2018"):
+        elif(year == "2012" or year == "2013" or year == "2014"):
+            page.select_option('select#lists-event', value=group)
+            time.sleep(1)
+            # page.select_option('select#default-lists-event', value=subgroup)
+            page.select_option('select#lists-sex', value=gender)
+            time.sleep(1)
+            # page.select_option('select#lists-ageclass', value=agegroup)
+            time.sleep(1)
+            page.select_option('#form_lists_default select#num_results', value=results_page)
+            time.sleep(1)
+            page.click('#form_lists_default button#submit', timeout=30000)
+            time.sleep(3)
+        elif(year < "2018" and year != "2012"):
             page.select_option('select#fe-lists-event', value=group)
             time.sleep(1)
             # page.select_option('select#default-lists-event', value=subgroup)
             page.select_option('select#fe-lists-sex', value=gender)
-            page.select_option('select#fe-lists-ageclass', value=agegroup)
+            time.sleep(1)
+            # page.select_option('select#fe-lists-ageclass', value=agegroup)
+            time.sleep(1)
             page.select_option('select#fe-lists-num-results', value=results_page)
+            time.sleep(1)
             page.click('input[value="show results"]', timeout=30000)
             time.sleep(3)
-        
+
         allResults=[]
         if(year>="2018"):
             header= scrape_results_header(page)
@@ -143,18 +164,33 @@ def scrape_event_links(page, year=2024,  group="runner", subgroup="R", gender="M
 if __name__ == "__main__":
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         # Set user agent
         page.set_extra_http_headers({
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
         })
-        year='2011'
-        group="R"
-        subgroup="R"
-        gender="M"
-        agegroup=""
+        year='2025'
+        # group="runner"
+        # subgroup="R"
+        # subgroup="PCT61"
+        # subgroup="PCT62"
+        # subgroup="PCT45"
+        # subgroup="PCT35"
+        # subgroup="PCT20"
+        # subgroup="PCT13"
+        # subgroup="PCT11"
+        # group="wheelchair"
+        # subgroup="P5"
+        # subgroup="P6"
+        # group="handcycle"
+        # subgroup="H"
+        group="duoteam"
+        subgroup="DT"
+
+        gender="W"
+        agegroup="%"
         results_page='1000'
         
         # Get all events first
@@ -162,17 +198,20 @@ if __name__ == "__main__":
         print(f'allEvents: {allEvents}')
     
         try:
-            safe_name = sanitize_filename(group)
-            output_file = f"output/{year}{safe_name}.csv"
+            safe_name = sanitize_filename(f"{group}_{subgroup}_{gender}")
+            output_file = f"output/{year}_{safe_name}.csv"
             with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
                 # Add event information as header rows
                 writer.writerow(["Event Information:"])
+                writer.writerow(["Name: The Boston Marathon" ])
                 writer.writerow(["Year:", year])
                 writer.writerow(["Group:", group])
                 writer.writerow(["Subgroup:", subgroup])
                 writer.writerow(["Gender:", gender])
                 writer.writerow(["Age Group:", agegroup])
+                writer.writerow(["Link:", f'https://results.baa.org/{year}/?pid=list'])
+
                 writer.writerow([])  # Empty row for separation
                 writer.writerow(["Race Results:"])
                 try:
